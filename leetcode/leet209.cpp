@@ -1,3 +1,4 @@
+
 class Solution {
     int two_pointer(int s, vector<int>& a) {
         const int n=a.size();
@@ -23,8 +24,35 @@ class Solution {
         }
         return ans==n+1?0:ans;
     }
+
+
+
+    int binary_search(int s, vector<int>& a) {
+        if (a.empty()) return 0;
+        const int n=a.size();
+        auto p=[&n,&s,&a](int l) {
+            int sum=0;
+            for (int i=0;i<l && sum<s;i++) sum+=a[i];
+            for (int i=l;i<n && sum<s;i++) sum=sum-a[i-l]+a[i];
+            return sum>=s;
+        };
+        int lo=1;
+        int hi=n;
+        while (lo<hi) {
+            int mid=lo+(hi-lo)/2;
+            if (p(mid)) {
+                hi=mid;
+            } else {
+                lo=mid+1;
+            }
+        }
+        if (!p(lo)) return 0;
+        return lo;
+    }
     public:
     int minSubArrayLen(int s, vector<int>& a) {
-        return two_pointer(s,a);
+        //return two_pointer(s,a);
+        return binary_search(s, a);
     }
 };
+
