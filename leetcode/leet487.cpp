@@ -18,9 +18,8 @@ class Solution {
         }
         return len;
     }
-    public:
-    int findMaxConsecutiveOnes(vector<int>& a) {
-        //return two_pointer(a);
+
+    int stream(const vector<int>& a) {
         if (a.empty()) return 0;
         array<int,2> f({-1,-1});
         int i=0;
@@ -44,5 +43,11 @@ class Solution {
         if (f[0]!=-1) len=max(len, i-f[0]);
         if (f[1]!=-1) len=max(len, i-f[1]);
         return len;
+    }
+    public:
+    int findMaxConsecutiveOnes(vector<int>& a) {
+        //return two_pointer(a);
+        return stream(a);
+
     }
 };
